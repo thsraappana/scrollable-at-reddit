@@ -1,0 +1,6 @@
+module Pods_ScrollableAtReddit {
+  umbrella header "Pods-ScrollableAtReddit-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,109 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.scrollableatreddit"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="28" />
+10
+11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+11-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/debug/AndroidManifest.xml:5:5-77
+11-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/debug/AndroidManifest.xml:5:22-75
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:4:5-67
+12-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:4:22-64
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+13-->[com.facebook.flipper:flipper:0.33.1] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/e8bf3916c5bd6d1d9287245077716f3f/jetified-flipper-0.33.1/AndroidManifest.xml:16:5-76
+13-->[com.facebook.flipper:flipper:0.33.1] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/e8bf3916c5bd6d1d9287245077716f3f/jetified-flipper-0.33.1/AndroidManifest.xml:16:22-73
+14    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+14-->[com.google.android.gms:play-services-iid:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/72fb4bf3b9d1a4fb67c28eedb3c03b08/play-services-iid-17.0.0/AndroidManifest.xml:23:5-82
+14-->[com.google.android.gms:play-services-iid:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/72fb4bf3b9d1a4fb67c28eedb3c03b08/play-services-iid-17.0.0/AndroidManifest.xml:23:22-79
+15    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+15-->[com.android.installreferrer:installreferrer:1.1.1] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/0148465e992056a79f9bfa7fb9fba8b8/installreferrer-1.1.1/AndroidManifest.xml:5:5-110
+15-->[com.android.installreferrer:installreferrer:1.1.1] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/0148465e992056a79f9bfa7fb9fba8b8/installreferrer-1.1.1/AndroidManifest.xml:5:22-107
+16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+17    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+18    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+19
+20    <application
+20-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:6:5-25:19
+21        android:name="com.scrollableatreddit.MainApplication"
+21-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:7:7-38
+22        android:allowBackup="false"
+22-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:11:7-34
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.1.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/4f509a65121478d6153615d7ef5b7c5f/core-1.1.0/AndroidManifest.xml:24:18-86
+24        android:debuggable="true"
+25        android:icon="@mipmap/ic_launcher"
+25-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:9:7-41
+26        android:label="@string/app_name"
+26-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:8:7-39
+27        android:roundIcon="@mipmap/ic_launcher_round"
+27-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:10:7-52
+28        android:theme="@style/AppTheme"
+28-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:12:7-38
+29        android:usesCleartextTraffic="true" >
+29-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/debug/AndroidManifest.xml:7:18-53
+30        <activity
+30-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:13:7-23:18
+31            android:name="com.scrollableatreddit.MainActivity"
+31-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:14:9-37
+32            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+32-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:16:9-86
+33            android:label="@string/app_name"
+33-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:15:9-41
+34            android:launchMode="singleTask"
+34-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:17:9-40
+35            android:windowSoftInputMode="adjustResize" >
+35-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:18:9-51
+36            <intent-filter>
+36-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:19:9-22:25
+37                <action android:name="android.intent.action.MAIN" />
+37-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:20:13-65
+37-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:20:21-62
+38
+39                <category android:name="android.intent.category.LAUNCHER" />
+39-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:21:13-73
+39-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:21:23-70
+40            </intent-filter>
+41        </activity>
+42        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+42-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:24:7-84
+42-->/Users/tommiraappana/personal/scrollable-at-reddit/android/app/src/main/AndroidManifest.xml:24:17-81
+43
+44        <receiver
+44-->[:react-native-device-info] /Users/tommiraappana/personal/scrollable-at-reddit/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-19:20
+45            android:name="com.learnium.RNDeviceInfo.RNDeviceReceiver"
+45-->[:react-native-device-info] /Users/tommiraappana/personal/scrollable-at-reddit/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-70
+46            android:enabled="true"
+46-->[:react-native-device-info] /Users/tommiraappana/personal/scrollable-at-reddit/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-35
+47            android:exported="true" >
+47-->[:react-native-device-info] /Users/tommiraappana/personal/scrollable-at-reddit/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-36
+48            <intent-filter>
+48-->[:react-native-device-info] /Users/tommiraappana/personal/scrollable-at-reddit/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:29
+49                <action android:name="com.android.vending.INSTALL_REFERRER" />
+49-->[:react-native-device-info] /Users/tommiraappana/personal/scrollable-at-reddit/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-79
+49-->[:react-native-device-info] /Users/tommiraappana/personal/scrollable-at-reddit/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:25-76
+50            </intent-filter>
+51        </receiver>
+52
+53        <activity
+53-->[com.google.android.gms:play-services-base:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/6d45d9e0505112f0eec54f8796757f91/play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+54            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+54-->[com.google.android.gms:play-services-base:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/6d45d9e0505112f0eec54f8796757f91/play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+55            android:exported="false"
+55-->[com.google.android.gms:play-services-base:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/6d45d9e0505112f0eec54f8796757f91/play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+56            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+56-->[com.google.android.gms:play-services-base:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/6d45d9e0505112f0eec54f8796757f91/play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+57
+58        <meta-data
+58-->[com.google.android.gms:play-services-basement:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/0c9fb0d225fdae8f88a24ad4ed8cb6b4/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+59            android:name="com.google.android.gms.version"
+59-->[com.google.android.gms:play-services-basement:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/0c9fb0d225fdae8f88a24ad4ed8cb6b4/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+60            android:value="@integer/google_play_services_version" />
+60-->[com.google.android.gms:play-services-basement:17.0.0] /Users/tommiraappana/.gradle/caches/transforms-2/files-2.1/0c9fb0d225fdae8f88a24ad4ed8cb6b4/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+61    </application>
+62
+63</manifest>

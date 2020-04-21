@@ -1,0 +1,19 @@
+{
+  "env": {
+      "node": true,
+      "browser": true,
+      "es6": true,
+      "jest": true
+  },
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+      "react/jsx-filename-extension": [ 1, { 
+          "extensions": [ ".js", ".jsx" ] 
+          } ],
+          "react/destructuring-assignment": "disabled",
+          "react/state-in-constructor": "disabled",
+          "react/prop-types": [2, { "ignore": ["children"] }],
+          "global-require": 0  
+      }
+}
