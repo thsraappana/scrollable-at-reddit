@@ -62,7 +62,7 @@ class ApiManager  {
   }
 
   fetchSubredditHotData(sub) {
-    const endpoint = `https://oauth.reddit.com/r/${sub}/hot?limit=100`;
+    const endpoint = `https://oauth.reddit.com/r/${sub}/hot?limit=25?show=all`;
 
     return axios({
       method: 'get',
