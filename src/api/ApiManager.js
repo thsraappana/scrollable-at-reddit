@@ -10,8 +10,8 @@ const duration = 'temporary';
 
 const version = DeviceInfo.getVersion();
 
-const errorHandling = (error) => {
-  console.log(`[API] Got errored -> ${error}`);
+const errorHandling = (error, call) => {
+  console.log(`[API][${call}] Got errored -> ${error}`);
 
   if (error.response) {
     throw new Error(error);
@@ -54,7 +54,10 @@ class ApiManager  {
       data: form,
     })
       .then((response) => response)
-      .catch(errorHandling);
+      .catch(e => {
+        console.log('e', e.request);
+        errorHandling(e, 'getAccessToken')
+      });
   }
 
   setAccessToken(token) {
@@ -72,7 +75,7 @@ class ApiManager  {
       }
     })
       .then((req) => req.data.data)
-      .catch(errorHandling);
+      .catch(e => errorHandling(e, 'getAccessToken'));
   }
 }
 

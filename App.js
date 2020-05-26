@@ -19,6 +19,8 @@ import ContentScroller from './src/components/ContentScroller/ContentScroller';
 import ApiManager from './src/api/ApiManager';
 import { useMountEffect } from './src/CustomHooks';
 
+console.disableYellowBox = true;
+
 function App() {
   const [contentData, setContentData] = useState([]);
   useMountEffect(() => {

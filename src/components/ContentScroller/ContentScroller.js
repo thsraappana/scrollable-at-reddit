@@ -3,26 +3,34 @@ import {
   View,
   Text,
   StyleSheet,
+  ActivityIndicator,
 } from 'react-native';
 
 import ContentSlide from '../ContentSlide/ContentSlide';
 
 function ContentScroller(props) {
-  const [contentIndex, setContentIndex] = useState(1);
+  const [contentIndex, setContentIndex] = useState(0);
 
   function scrollToNext() {
-    console.log('scroll to next slide');
-    setContentIndex(contentIndex + 1);
+    if (contentIndex <= 25) {
+      setContentIndex(contentIndex + 1);
+    } else {
+      alert('need to fetch more content');
+    }
   }
 
   function scrollToPrev() {
-    console.log('scroll to next slide');
-    setContentIndex(contentIndex - 1);
+    if (contentIndex > 0) {
+      setContentIndex(contentIndex - 1);
+    }
   }
 
   return (
     <View style={styles.container}>
-      <ContentSlide content={props.data[contentIndex]} contentNext={props.data[contentIndex+1]} contentPrev={props.data[contentIndex-1]} scrollToNext={scrollToNext} scrollToPrev={scrollToPrev} />
+      <View style={styles.loader}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+      <ContentSlide content={props.data[contentIndex]} contentIndex={contentIndex} scrollToNext={scrollToNext} scrollToPrev={scrollToPrev} />
     </View>
   );
 }
@@ -30,8 +38,12 @@ function ContentScroller(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "red"
   },
+  loader: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+  }
 });
 
 export default ContentScroller;

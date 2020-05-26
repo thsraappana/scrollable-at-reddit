@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,78 +6,27 @@ import {
   Image,
   Button,
   TouchableOpacity,
-  Animated,
-  PanResponder,
-  Dimensions,
 } from 'react-native';
 
-const windowHeight = Dimensions.get('window').height;
-
 function ContentSlide(props) {
-  const pan = useRef(new Animated.ValueXY()).current;
-
-  console.log('props', props);
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        pan.setOffset({
-          y: pan.y._value
-        });
-      },
-      onPanResponderMove: Animated.event(
-        [
-          null,
-          { dy: pan.y }
-        ]
-      ),
-      onPanResponderRelease: () => {
-        pan.flattenOffset();
-      }
-    })
-  ).current;
-
+  console.log('props', props.content);
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.prevButton} onPress={() => props.scrollToPrev()}>
-        <Text>PREV</Text>
+      <TouchableOpacity disabled={props.contentIndex === 0} style={props.contentIndex === 0 ? styles.disabledButton : styles.controlButton} onPress={() => props.scrollToPrev()}>
+        <Text style={styles.controlButtonText}>PREV</Text>
       </TouchableOpacity>
-      <Animated.View
-        style={{
-          transform: [{ translateY: pan.y }]
-        }}
-        {...panResponder.panHandlers}
-      >
       <View style={styles.contentContainer}>
-      {props.contentPrev ? (
-        <Image
-          style={styles.contentImg}
-          source={{
-            uri: props.contentPrev.data.url,
-          }}
-        />
-        ): null}
-      {props.content ? (
-        <Image
-          style={styles.contentImg}
-          source={{
-            uri: props.content.data.url,
-          }}
-        />
-        ): null}
-      {props.contentNext ? (
-        <Image
-          style={styles.contentImg}
-          source={{
-            uri: props.contentNext.data.url,
-          }}
-        />
+        {props.content ? (
+          <Image
+            style={styles.contentImg}
+            source={{
+              uri: props.content.data.url,
+            }}
+          />
         ): null}
       </View>
-      </Animated.View>
-      <TouchableOpacity style={styles.nextButton} onPress={() => props.scrollToNext()}>
-        <Text>Next</Text>
+      <TouchableOpacity style={styles.controlButton} onPress={() => props.scrollToNext()}>
+        <Text style={styles.controlButtonText}>NEXT</Text>
       </TouchableOpacity>
     </View>
   );
@@ -92,25 +41,28 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   contentContainer: {
-    transform: [
-      { translateY: -windowHeight }
-    ],
+    flex: 1,
   },
   contentImg: {
-    height: windowHeight,
+    width: '100%',
+    height: '100%',
   },
-  nextButton: {
+  controlButton: {
     backgroundColor: '#f194ff',
-    position: 'absolute',
-    bottom: 0,
-    zIndex: 9,
+    padding: 16,
+    width: '100%',
   },
-  prevButton: {
-    backgroundColor: '#f194ff',
-    position: 'absolute',
-    top: 0,
-    zIndex: 9,
+  controlButtonText: {
+    color: '#fff',
+    width: '100%',
+    textAlign: 'center',
   },
+  disabledButton: {
+    backgroundColor: 'gray',
+    padding: 16,
+    opacity: 0.6,
+    width: '100%',
+  }
 });
 
 export default ContentSlide;
