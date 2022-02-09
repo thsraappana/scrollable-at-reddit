@@ -69,14 +69,19 @@ void FlipperClient::addPlugin(std::shared_ptr<FlipperPlugin> plugin) {
     step->complete();
     if (connected_) {
       refreshPlugins();
-      if (plugin->runInBackground()) {
-        auto& conn = connections_[plugin->identifier()];
-        conn = std::make_shared<FlipperConnectionImpl>(
-            socket_.get(), plugin->identifier());
-        plugin->didConnect(conn);
-      }
     }
   });
+}
+
+void FlipperClient::setCertificateProvider(
+    const std::shared_ptr<FlipperCertificateProvider> provider) {
+  socket_->setCertificateProvider(provider);
+  log("cpp setCertificateProvider called");
+}
+
+std::shared_ptr<FlipperCertificateProvider>
+FlipperClient::getCertificateProvider() {
+  return socket_->getCertificateProvider();
 }
 
 void FlipperClient::removePlugin(std::shared_ptr<FlipperPlugin> plugin) {
@@ -95,27 +100,6 @@ void FlipperClient::removePlugin(std::shared_ptr<FlipperPlugin> plugin) {
   });
 }
 
-void FlipperClient::startBackgroundPlugins() {
-  std::cout << "Activating Background Plugins..." << std::endl;
-  for (std::map<std::string, std::shared_ptr<FlipperPlugin>>::iterator it =
-           plugins_.begin();
-       it != plugins_.end();
-       ++it) {
-    std::cout << it->first << std::endl;
-    if (it->second.get()->runInBackground()) {
-      try {
-        auto& conn = connections_[it->first];
-        conn =
-            std::make_shared<FlipperConnectionImpl>(socket_.get(), it->first);
-        it->second.get()->didConnect(conn);
-      } catch (std::exception& e) {
-        log("Exception starting background plugin: " + it->first + ". " +
-            e.what());
-      }
-    }
-  }
-}
-
 std::shared_ptr<FlipperPlugin> FlipperClient::getPlugin(
     const std::string& identifier) {
   std::lock_guard<std::mutex> lock(mutex_);
@@ -128,6 +112,15 @@ std::shared_ptr<FlipperPlugin> FlipperClient::getPlugin(
 bool FlipperClient::hasPlugin(const std::string& identifier) {
   std::lock_guard<std::mutex> lock(mutex_);
   return plugins_.find(identifier) != plugins_.end();
+}
+
+void FlipperClient::connect(std::shared_ptr<FlipperPlugin> plugin) {
+  if (connections_.find(plugin->identifier()) == connections_.end()) {
+    auto& conn = connections_[plugin->identifier()];
+    conn = std::make_shared<FlipperConnectionImpl>(
+        socket_.get(), plugin->identifier());
+    plugin->didConnect(conn);
+  }
 }
 
 void FlipperClient::disconnect(std::shared_ptr<FlipperPlugin> plugin) {
@@ -151,7 +144,6 @@ void FlipperClient::onConnected() {
 
     std::lock_guard<std::mutex> lock(mutex_);
     connected_ = true;
-    startBackgroundPlugins();
   });
 }
 
@@ -175,7 +167,7 @@ void FlipperClient::onMessageReceived(
   // plugin, and still use it to respond with an error if we catch an exception.
   std::shared_ptr<FlipperResponder> responder = std::move(uniqueResponder);
   try {
-    std::lock_guard<std::mutex> lock(mutex_);
+    std::unique_lock<std::mutex> lock(mutex_);
     const auto& method = message["method"];
     const auto& params = message.getDefault("params");
 
@@ -183,6 +175,18 @@ void FlipperClient::onMessageReceived(
       dynamic identifiers = dynamic::array();
       for (const auto& elem : plugins_) {
         identifiers.push_back(elem.first);
+      }
+      dynamic response = dynamic::object("plugins", identifiers);
+      responder->success(response);
+      return;
+    }
+
+    if (method == "getBackgroundPlugins") {
+      dynamic identifiers = dynamic::array();
+      for (const auto& elem : plugins_) {
+        if (elem.second->runInBackground()) {
+          identifiers.push_back(elem.first);
+        }
       }
       dynamic response = dynamic::object("plugins", identifiers);
       responder->success(response);
@@ -200,12 +204,7 @@ void FlipperClient::onMessageReceived(
         return;
       }
       const auto plugin = plugins_.at(identifier);
-      if (!plugin.get()->runInBackground()) {
-        auto& conn = connections_[plugin->identifier()];
-        conn = std::make_shared<FlipperConnectionImpl>(
-            socket_.get(), plugin->identifier());
-        plugin->didConnect(conn);
-      }
+      connect(plugin);
       return;
     }
 
@@ -220,9 +219,7 @@ void FlipperClient::onMessageReceived(
         return;
       }
       const auto plugin = plugins_.at(identifier);
-      if (!plugin.get()->runInBackground()) {
-        disconnect(plugin);
-      }
+      disconnect(plugin);
       return;
     }
 
@@ -236,7 +233,12 @@ void FlipperClient::onMessageReceived(
             "name", "ConnectionNotFound"));
         return;
       }
-      const auto& conn = connections_.at(params["api"].getString());
+      const auto conn = connections_.at(params["api"].getString());
+
+      // conn->call(...) may call back to FlipperClient causing a deadlock (see
+      // T92341964). Making sure the mutex is not locked.
+      lock.unlock();
+
       conn->call(
           params["method"].getString(), params.getDefault("params"), responder);
       return;
